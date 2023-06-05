@@ -38,13 +38,19 @@ describe("Login tests", () => {
     cy.contains("Please enter a valid email").should("not.exist");
   });
 
-  it("Should be logined", () => {
-    loginPage.autorization("email@abtasty.com", "password"); //correct
+  it("Should be logined with correct data", () => {
+    loginPage.autorization("correctemail@abtasty.com", "password"); //correct
     // you should be on the new page
   });
 
-  it("Should not be logined", () => {
-    loginPage.autorization("email@abtasty.com", "password"); // incorrect
+  it("Should not be logined with incorrect password", () => {
+    loginPage.autorization("email@abtasty.com", "incorrectpassword"); // incorrect password
+    cy.contains("Please enter a valid email or password").should("be.visible");
+    cy.url().should("include", "/login");
+  });
+
+  it("Should not be logined with unknown data", () => {
+    loginPage.autorization("incorrectemail@abtasty.com", "incorrectpassword"); // unknown data
     cy.contains("Please enter a valid email or password").should("be.visible");
     cy.url().should("include", "/login");
   });
