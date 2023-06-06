@@ -55,10 +55,10 @@ describe("Login tests", () => {
     cy.url().should("include", "/login");
   });
 
-  it("Should be open ssologin page", () => {
-    cy.contains("Sign in with SSO").should("be.enabled").click();
-    cy.url().should("include", "/ssologin");
-    cy.get("input[type='email']").should("be.enabled");
-    cy.get("button[type='submit']").should("be.enabled");
+  it("Recapcha should be shown after 3 mistakes", () => {
+    for (let i = 0; i < 3; i++) {
+      loginPage.autorization("incorrect@abtasty.com", "incorrect"); // unknown data
+    }
+    cy.get(loginPage.recapcha).should("be.visible");
   });
 });
