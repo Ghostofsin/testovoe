@@ -40,18 +40,20 @@ describe("Login tests", () => {
   });
 
   it("Should be logined with correct data", () => {
-    loginPage.autorization(uuidv4() + "@abtasty.com", uuidv4()); //correct
-    // you should be on the new page
+    loginPage.autorization(uuidv4() + "@abtasty.com", uuidv4()); // here must be correct data
+    // you should be redirected to the new page
+    // and it can be checked this way:
+    // cy.url().should("include", "/some_new_page");
   });
 
   it("Should not be logined with incorrect password", () => {
-    loginPage.autorization(uuidv4() + "@abtasty.com", uuidv4()); // incorrect password
+    loginPage.autorization(uuidv4() + "@abtasty.com", uuidv4()); // here must be incorrect password
     cy.contains("Please enter a valid email or password").should("be.visible");
     cy.url().should("include", "/login");
   });
 
   it("Should not be logined with unknown data", () => {
-    loginPage.autorization(uuidv4() + "@abtasty.com", uuidv4()); // unknown data
+    loginPage.autorization(uuidv4() + "@abtasty.com", uuidv4()); // here must be unknown user
     cy.contains("Please enter a valid email or password").should("be.visible");
     cy.url().should("include", "/login");
   });
