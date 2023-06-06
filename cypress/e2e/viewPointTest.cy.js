@@ -4,7 +4,7 @@ var openPage = () => {
 };
 
 describe("View point tests", () => {
-  [1024, 1025, 1100].forEach((size) => {
+  [1025, 1100].forEach((size) => {
     it("Login form should be located in the left part of screen", () => {
       cy.viewport(size, 750);
       openPage();
@@ -12,7 +12,7 @@ describe("View point tests", () => {
     });
   });
 
-  [1023, 700].forEach((size) => {
+  [1024, 1023, 700].forEach((size) => {
     it("Login form should be stretched on full screen", () => {
       cy.viewport(size, 750);
       openPage();
