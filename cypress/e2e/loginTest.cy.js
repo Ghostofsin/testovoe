@@ -1,4 +1,5 @@
 const { loginPage } = require("../support/pageObjects/LoginPage");
+import { v4 as uuidv4 } from "uuid";
 
 describe("Login tests", () => {
   beforeEach(() => {
@@ -39,25 +40,27 @@ describe("Login tests", () => {
   });
 
   it("Should be logined with correct data", () => {
-    loginPage.autorization("correctemail@abtasty.com", "password"); //correct
+    loginPage.autorization(uuidv4() + "@abtasty.com", uuidv4()); //correct
     // you should be on the new page
   });
 
   it("Should not be logined with incorrect password", () => {
-    loginPage.autorization("email@abtasty.com", "incorrectpassword"); // incorrect password
+    loginPage.autorization(uuidv4() + "@abtasty.com", uuidv4()); // incorrect password
     cy.contains("Please enter a valid email or password").should("be.visible");
     cy.url().should("include", "/login");
   });
 
   it("Should not be logined with unknown data", () => {
-    loginPage.autorization("incorrectemail@abtasty.com", "incorrectpassword"); // unknown data
+    loginPage.autorization(uuidv4() + "@abtasty.com", uuidv4()); // unknown data
     cy.contains("Please enter a valid email or password").should("be.visible");
     cy.url().should("include", "/login");
   });
 
   it("Recapcha should be shown after 3 mistakes", () => {
+    let login = uuidv4() + "@abtasty.com";
+    let password = uuidv4();
     for (let i = 0; i < 3; i++) {
-      loginPage.autorization("incorrect@abtasty.com", "incorrect"); // unknown data
+      loginPage.autorization(login, password); // unknown data
     }
     cy.get(loginPage.recapcha).should("be.visible");
   });

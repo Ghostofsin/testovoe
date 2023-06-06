@@ -4,7 +4,8 @@
   "description": "",
   "main": "cypress.config.js",
   "dependencies": {
-    "cypress": "^12.13.0"
+    "cypress": "^12.13.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {},
   "scripts": {
