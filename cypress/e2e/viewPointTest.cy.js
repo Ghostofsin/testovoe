@@ -5,7 +5,7 @@ var openPage = () => {
 
 describe("View point tests", () => {
   [1024, 1025, 1100].forEach((size) => {
-    it("Shoul be with picture", () => {
+    it("Login form should be located in the left part of screen", () => {
       cy.viewport(size, 750);
       openPage();
       cy.get(".Layout__defaultColumn___yphOS").should("be.visible");
@@ -13,7 +13,7 @@ describe("View point tests", () => {
   });
 
   [1023, 700].forEach((size) => {
-    it("Shoul not be with picture", () => {
+    it("Login form should be stretched on full screen", () => {
       cy.viewport(size, 750);
       openPage();
       cy.get(".Layout__defaultColumn___yphOS").should("not.be.visible");
